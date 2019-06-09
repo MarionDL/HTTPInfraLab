@@ -10,6 +10,8 @@ In this first step, we implemented an Apache httpd server with static content. I
 
 ### Specification
 
+For our server, we used an existing image from the docker hub as a base : `php:5.6-apache`
+
 As the server is implemented to be executed with Docker, its IP address is the one of the Docker Virtual Machine : 192.168.99.100 and accepts connection on port 80 (the default port number to consult an HTTP server via a web browser).
 
 The template used for this lab is a very simple one found in Bootstrap free themes online database :
@@ -63,3 +65,35 @@ Then, we have to run the container with port-mapping :
 
 Finally, we can access the content from a browser by typing this into our favorite web browser (Firefox was used here) :
 `192.168.99.100:9090`. It will automatically open a JSON representation of the resource asked, in this case the very famous Bubu poem.
+
+## Step 3 : Reverse proxy with apache
+
+### Application
+
+In this third step, we implemented a reverse proxy with Apache (static configuration). Its job is to redirect the client either to the first step's server (the static one) or the second's (the dynamic one), depending on the GET request.
+
+### Specification
+
+We used following base image for our server : `php:5.6-apache` (like in the first step). Its IP address is Docker Machine one, like in the previous steps.
+
+From the base image, we added some content to the `sites-availables` folder (situated in the configuration files of the apache server, like explained in the first step), to give access to our previous applications. 
+
+Inside it, we wrote a default configuration file and one for our reverse proxy.
+
+/!\ Be careful : inside this second file, the container's IP addresses are hard-coded. You would have to modify them if the addresses of your containers are not the same as ours.
+
+### Third step demo :
+
+Before testing this new server, you have to make sure that you have the 2 previous applications containers running and check if the IP addresses are still effective.
+
+The Dockerfile is located in the `docker-images/apache-reverse-proxy/` folder. To build the image, type :
+
+`docker build -t res/apache_rp .`
+
+To run the container :
+
+`docker run -p 8080:80 res/apache_rp`
+
+Finally, you have to change your DNS configuration to have access to our server via your web browser and add a new entry with the Docker machine IP address with `demo.res.ch`.
+
+Then you can try with your browser either `demo.res.ch:8080` or `demo.res.ch:8080/api/bubu/`.
