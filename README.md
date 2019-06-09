@@ -97,3 +97,22 @@ To run the container :
 Finally, you have to change your DNS configuration to have access to our server via your web browser and add a new entry with the Docker machine IP address with `demo.res.ch`.
 
 Then you can try with your browser either `demo.res.ch:8080` or `demo.res.ch:8080/api/bubu/`.
+
+## Step 4 : AJAX requests with JQuery
+
+### Application
+
+This fourth step was meant to connect our 2 applications to perform a dynamic reload of our webpage with AJAX requests. Now, the first verse of our Bubu poem is printed on the website.
+
+### Specification
+
+From the first step, we just added a new script that performs this reloading inside the `content` folder. From now on, we work with the previous step specification (with the reverse proxy).
+
+### Fourth step demo :
+
+First you will have to re-build our `apache-php-image`, because the content changed a bit. Then, you have to make sure that you have your 3 containers running (the reverse proxy, the dynamic server and the static server).
+
+Finally, you can access the new content with the instruction given in the previous step : `demo.res.ch:8080`
+
+You will be able to see that every 1000 ms, some of the content of the page changes to print a new verse.
+
