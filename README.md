@@ -122,7 +122,7 @@ You will be able to see that every 1000 ms, some of the content of the page chan
 
 For this fifth step, we reviewed our previous implementation of the reverse proxy server. Remember, it had one big drawback : its configuration was static, so we had to make sure of the IP addresses of our running containers and modify the configuration file if our IP addresses were not matching.
 
-Here, we use the -e option in Docker to set the environment variables of our server. Like so, we won't have to change the config file and we can directly write our IP addresses when we start the container.
+Here, we use the -e option in Docker to set the environment variables of our server, and these variables are included in a new php config file named `config-template`. Like so, we won't have to change the config file and we can directly write our IP addresses when we start the container.
 
 ### Specification
 
@@ -159,3 +159,11 @@ You can then access this UI with your browser at the following address :
 `192.168.99.100:9000`
 
 If you want more information about Portainer : https://www.portainer.io/
+
+## Additional step 2 : Support load balancing (multiple server nodes)
+
+In this additional step, we extended the reverse proxy configuration to support load balancing. With this new feature, we can have multiple server nodes, dynamic ones or static ones.
+
+To perform this, we had to change our `config-template` php file and use the features of the `proxy_balancer` module to define our clusters.
+
+Don't forget to re-build the new image. In our implementation, 
