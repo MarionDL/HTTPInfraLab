@@ -1,5 +1,9 @@
 # HTTP Infrastructure Lab - Documentation
 
+Author : Marion Dutu Launay (for the additionnal steps, I worked with another student, Edoardo Carpita)
+
+Date : Monday 10th June 2019
+
 ## Step 1 : Apache httpd server with Docker, static content
 
 Folder : `/docker-images/apache-php-image`
