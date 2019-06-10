@@ -145,3 +145,15 @@ You can now start your new apache reverse proxy like so :
 `docker dun -d -e STATIC_APP=<IP of static app>:80 -e DYNAMIC_APP=<IP of dynamic app>:3000 -p 8080:80 res/apache_rp`
 
 Finally, you can see the result in your web browser like in the previous step.
+
+### Additional step 1 : Management UI with Portainer
+
+We found an interesting app available on DockerHub to help you manage your containers. This app called Portainer helps you by providing a nice looking user interface. To install it, you have to run :
+
+`docker volume create portainer_data`
+
+`docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer`
+
+You can then access this UI with your browser at the following address :
+
+`localhost:9000`
