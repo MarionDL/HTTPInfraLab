@@ -142,7 +142,7 @@ Then, you have to start the 2 applications containers and find their IP addresse
 
 You can now start your new apache reverse proxy like so :
 
-`docker dun -d -e STATIC_APP=<IP of static app>:80 -e DYNAMIC_APP=<IP of dynamic app>:3000 -p 8080:80 res/apache_rp`
+`docker run -d -e STATIC_APP=<IP of static app>:80 -e DYNAMIC_APP=<IP of dynamic app>:3000 -p 8080:80 res/apache_rp`
 
 Finally, you can see the result in your web browser like in the previous step.
 
