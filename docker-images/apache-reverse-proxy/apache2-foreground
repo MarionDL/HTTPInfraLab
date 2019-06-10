@@ -4,8 +4,10 @@ set -e
 
 # Add setup for our lab
 echo "Setup for the RES lab..."
-echo "Static app URL: $STATIC_APP"
-echo "Dynamic app URL: $DYNAMIC_APP"
+echo "Static app1 URL: $STATIC_APP1"
+echo "Static app2 URL: $STATIC_APP2"
+echo "Dynamic app1 URL: $DYNAMIC_APP1"
+echo "Dynamic app2 URL: $DYNAMIC_APP2"
 
 php /var/apache2/templates/config-template.php > /etc/apache2/sites-available/001-reverse-proxy.conf
 
