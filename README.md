@@ -157,3 +157,5 @@ We found an interesting app available on DockerHub to help you manage your conta
 You can then access this UI with your browser at the following address :
 
 `localhost:9000`
+
+If you want more information about Portainer : https://www.portainer.io/
