@@ -116,3 +116,32 @@ Finally, you can access the new content with the instruction given in the previo
 
 You will be able to see that every 1000 ms, some of the content of the page changes to print a new verse.
 
+## Step 5 : Improvement of the reverse proxy with apache
+
+### Application
+
+For this fifth step, we reviewed our previous implementation of the reverse proxy server. Remember, it had one big drawback : its configuration was static, so we had to make sure of the IP addresses of our running containers and modify the configuration file if our IP addresses were not matching.
+
+Here, we use the -e option in Docker to set the environment variables of our server. Like so, we won't have to change the config file and we can directly write our IP addresses when we start the container.
+
+### Specification
+
+From the third step, we had to integrate a configuration script based on the existing official `apache2-foreground` script. This script will set the environment variables we wrote using `docker run`.
+
+The remaining specification is still the same as in the previous steps.
+
+### Fifth step demo :
+
+Of course, we have to re-build our image like so :
+
+`docker build -t res/apache_rp .`
+
+Then, you have to start the 2 applications containers and find their IP addresses with the following command :
+
+`docker inspect <name of your container> | grep -i ipaddress`
+
+You can now start your new apache reverse proxy like so :
+
+`docker dun -d -e STATIC_APP=<IP of static app>:80 -e DYNAMIC_APP=<IP of dynamic app>:3000 -p 8080:80 res/apache_rp`
+
+Finally, you can see the result in your web browser like in the previous step.
