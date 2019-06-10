@@ -160,7 +160,24 @@ Now you will have to start the reverse proxy with 4 new environment variables, w
 
 Finally, you can see the result in your web browser like in the previous steps.
 
-## Additional step 2 : Management UI with Portainer
+
+## Additional step 2 : Load balancing: round-robin vs sticky sessions 
+
+Now that we have implemented a load balancing system, we face another big problem: there's no direct way of one knowing what is in place in the case of a user session and we have also no way to make a user session stable (using always the same "material" for the session). In order to synchronize between these server sessions, we use the notion of of sticky-session and round-robin order.
+
+We modify the configuration we previosly established, adding the notion of **lbmethod=byrequests**, that will tell the proxy to use a round robin style order while using the material. 
+
+Then, we implement load balancer to use sticky sessions. This makes all of the same user interactions will happen with the same physical server, even though other servers are present. To do that, we set up a cookie based system.
+
+The following site were very helpful in implementing the solution:
+
+https://support.rackspace.com/how-to/simple-load-balancing-with-apache/
+http://docs.motechproject.org/en/latest/deployment/sticky_session_apache.html (method 2)
+
+To test and demonstrate the new system, we implemented a series of scripts and servers: we duplicated the two data containers (one static and one dynamic) and modified their content to show and send different content for every session. Then the **main_setup_situation.sh** will set up the 4 containers. Using the **build** and **run** script on the apache reverse proxy container will set up the proxy and then, for example using two different browsers to visit the demo.res page, result in the the two different group of static/dynamic server being used.
+
+
+## Additional step 3 : Management UI with Portainer
 
 We found an interesting app available on DockerHub to help you manage your containers. This app called Portainer helps you by providing a nice looking user interface. To install it, you have to run :
 
