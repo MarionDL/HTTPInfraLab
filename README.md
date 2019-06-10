@@ -146,7 +146,21 @@ You can now start your new apache reverse proxy like so :
 
 Finally, you can see the result in your web browser like in the previous step.
 
-## Additional step 1 : Management UI with Portainer
+## Additional step 1 : Support load balancing (multiple server nodes)
+
+In this additional step, we extended the reverse proxy configuration to support load balancing. With this new feature, we can have multiple server nodes, dynamic ones or static ones.
+
+To perform this, we had to change our `config-template` php file and use the features of the `proxy_balancer` module to define our clusters.
+
+Don't forget to re-build the new image. In our implementation, we can have 2 static applications and 2 dynamic applications managed by the balancer.
+
+Now you will have to start the reverse proxy with 4 new environment variables, with the same manner as the fifth step :
+
+`docker run -d -e STATIC_APP1=<IP of 1st static app>:80 -e STATIC_APP2=<IP of 2nd static app>:80 -e DYNAMIC_APP1=<IP of 1st dynamic app>:3000 -e DYNAMIC_APP1=<IP of 2nd dynamic app>:3000 -p 8080:80 res/apache_rp`
+
+Finally, you can see the result in your web browser like in the previous steps.
+
+## Additional step 2 : Management UI with Portainer
 
 We found an interesting app available on DockerHub to help you manage your containers. This app called Portainer helps you by providing a nice looking user interface. To install it, you have to run :
 
@@ -159,11 +173,3 @@ You can then access this UI with your browser at the following address :
 `192.168.99.100:9000`
 
 If you want more information about Portainer : https://www.portainer.io/
-
-## Additional step 2 : Support load balancing (multiple server nodes)
-
-In this additional step, we extended the reverse proxy configuration to support load balancing. With this new feature, we can have multiple server nodes, dynamic ones or static ones.
-
-To perform this, we had to change our `config-template` php file and use the features of the `proxy_balancer` module to define our clusters.
-
-Don't forget to re-build the new image. In our implementation, 
