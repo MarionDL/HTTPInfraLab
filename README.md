@@ -146,7 +146,7 @@ You can now start your new apache reverse proxy like so :
 
 Finally, you can see the result in your web browser like in the previous step.
 
-### Additional step 1 : Management UI with Portainer
+## Additional step 1 : Management UI with Portainer
 
 We found an interesting app available on DockerHub to help you manage your containers. This app called Portainer helps you by providing a nice looking user interface. To install it, you have to run :
 
